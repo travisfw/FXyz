@@ -18,6 +18,7 @@
  */
 package org.fxyz.cameras.controllers;
 
+import javafx.scene.input.KeyCode;
 import org.fxyz.utils.AnimationPreference;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -26,18 +27,30 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import org.fxyz.utils.MathUtils;
 
-/**
- * @author Dub
- */
+import static javafx.scene.input.KeyCode.SHIFT;
+import static javafx.scene.input.KeyCode.SPACE;
+
 public class FPSController extends CameraController {
 
+  private final KeyCode strafeLeft, strafeRight, strafeBack, strafeForward;
   private boolean fwd, strafeL, strafeR, back, up, down, shift, mouseLookEnabled;
   private double speed = 1.0;
   private final double maxSpeed = 5.0, minSpeed = 1.0;
 
 
   public FPSController() {
+    this(KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D);
+  }
+
+  /**
+   * For example, WASD.
+   */
+  public FPSController(KeyCode forward, KeyCode left, KeyCode back, KeyCode right) {
     super(true, AnimationPreference.TIMER);
+    strafeLeft = left;
+    strafeRight = right;
+    strafeForward = forward;
+    strafeBack = back;
   }
 
   @Override
@@ -67,56 +80,42 @@ public class FPSController extends CameraController {
   @Override
   public void handleKeyEvent(KeyEvent event, boolean handle) {
     if (event.getEventType() == KeyEvent.KEY_PRESSED) {
-      switch (event.getCode()) {
-      case W:
+      KeyCode kc = event.getCode();
+      if(kc == strafeForward)
         fwd = true;
-        break;
-      case S:
+      else if (kc == strafeBack)
         back = true;
-        break;
-      case A:
+      else if (kc == strafeLeft)
         strafeL = true;
-        break;
-      case D:
+      else if (kc == strafeRight)
         strafeR = true;
-        break;
-      case SHIFT:
+      else if (kc == SHIFT && !(up || down)) {
         shift = true;
-        if (up || down) {
-          break;
-        }
         speed = maxSpeed;
-        break;
-      case SPACE:
+      }
+      else if (kc == SPACE) {
         if (!shift) {
           up = true;
         } else if (shift) {
           down = true;
         }
-        break;
       }
     } else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
-      switch (event.getCode()) {
-      case W:
+      KeyCode kc = event.getCode();
+      if (kc == strafeForward)
         fwd = false;
-        break;
-      case S:
+      else if (kc == strafeBack)
         back = false;
-        break;
-      case A:
+      else if (kc == strafeLeft)
         strafeL = false;
-        break;
-      case D:
+      else if (kc == strafeRight)
         strafeR = false;
-        break;
-      case SHIFT:
+      else if (kc == SHIFT) {
         speed = minSpeed;
         shift = false;
-        break;
-      case SPACE:
+      } else if (kc == SPACE) {
         up = false;
         down = false;
-        break;
       }
     }
   }
