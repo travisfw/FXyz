@@ -6,7 +6,7 @@ fi
 
 # at the time of this writing, group and artifact are unofficially assumed to just be FXyz
 exec mvn install:install-file \
-     -DgroupId=FXyz \
+     -DgroupId=org.fxyz \
      -DartifactId=FXyz \
      -Dpackaging=jar \
      -Dversion=$fxyz_version \
