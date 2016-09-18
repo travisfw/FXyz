@@ -25,73 +25,91 @@ import javafx.scene.shape.TriangleMesh;
 
 
 public class RhombicDodecahedronMesh extends MeshView {
-	
-	public static final double DEFAULT_HEIGHT = 100.0D;
 
-	public RhombicDodecahedronMesh(){
-		this(DEFAULT_HEIGHT);
-	}
-	
-	public RhombicDodecahedronMesh (double height) {
-		setHeight(height);
+  public static final double DEFAULT_HEIGHT = 100.0D;
+
+  public RhombicDodecahedronMesh() {
+    this(DEFAULT_HEIGHT);
+  }
+
+  public RhombicDodecahedronMesh(double height) {
+    setHeight(height);
+  }
+
+
+  private TriangleMesh createRhombicDodecahedron(double height) {
+
+    TriangleMesh mesh = new TriangleMesh();
+
+    float h = (float) height;
+    float r = (float) height/2;
+    float s = (float) height/4;
+
+    mesh.getPoints().addAll(
+//				  0 ,   0 ,   0,    //point O
+//				  0 ,  he , -hy/2,  //point A
+//				-hy/2, he ,   0,    //point B
+//				 hy/2, he ,   0,	//point C
+//				  0 ,  he ,  hy/2,	//point D
+//				  0 , 2*he ,  0     //point E
+        // in ascending z order and counter clockwise from the x axis as 0degrees
+         0,  0, -r, // A  -z axis
+         s, -s, -s, // B
+        -s, -s, -s, // C
+        -s,  s, -s, // D
+         s,  s, -s, // E
+         r,  0,  0, // F  +x axis
+         0,  r,  0, // G  +y axis
+        -r,  0,  0, // H  -x axis
+         0, -r,  0, // I  +y axis
+         s, -s,  s, // J
+        -s, -s,  s, // K
+        -s,  s,  s, // L
+         s,  s,  s, // M
+         0,  0,  r  // N  +z axis
+
+    );
+
+
+    mesh.getTexCoords().addAll(0, 0);
+
+    mesh.getFaces().addAll(
+        0, 0, 2, 0, 1, 0,        // O-B-A
+        0, 0, 1, 0, 3, 0,        // O-A-C
+        0, 0, 3, 0, 4, 0,        // O-C-D
+        0, 0, 4, 0, 2, 0,        // O-D-B
+        4, 0, 1, 0, 2, 0,        // D-A-B
+        4, 0, 3, 0, 1, 0,        // D-C-A
+        5, 0, 2, 0, 1, 0,        // E-B-A
+        5, 0, 1, 0, 3, 0,        // E-A-C
+        5, 0, 3, 0, 4, 0,        // E-C-D
+        5, 0, 4, 0, 2, 0        // E-D-B
+    );
+
+
+    return mesh;
+  }
+
+  /*
+     Properties
+   */
+  private final DoubleProperty height = new SimpleDoubleProperty() {
+    @Override
+    protected void invalidated() {
+      setMesh(createRhombicDodecahedron(getHeight()));
     }
-	
-	
-	private TriangleMesh createRhombicDodecahedron(double height){
-		
-		TriangleMesh mesh = new TriangleMesh();
-		
-		float he = (float)height;
-		
-		mesh.getPoints().addAll(
-				  0 ,   0 ,   0,    //point O
-				  0 ,  he , -hy/2,  //point A
-				-hy/2, he ,   0,    //point B
-				 hy/2, he ,   0,	//point C
-				  0 ,  he ,  hy/2,	//point D
-				  0 , 2*he ,  0     //point E 
-				);
-		
-		
-		mesh.getTexCoords().addAll(0,0);
-		
-		mesh.getFaces().addAll(
-				0 , 0 , 2 , 0 , 1 , 0 ,		// O-B-A
-				0 , 0 , 1 , 0 , 3 , 0 ,		// O-A-C
-				0 , 0 , 3 , 0 , 4 , 0 ,		// O-C-D
-				0 , 0 , 4 , 0 , 2 , 0 ,		// O-D-B
-				4 , 0 , 1 , 0 , 2 , 0 ,		// D-A-B
-				4 , 0 , 3 , 0 , 1 , 0 ,		// D-C-A
-				5 , 0 , 2 , 0 , 1 , 0 ,		// E-B-A
-				5 , 0 , 1 , 0 , 3 , 0 ,		// E-A-C
-				5 , 0 , 3 , 0 , 4 , 0 ,		// E-C-D
-				5 , 0 , 4 , 0 , 2 , 0 		// E-D-B
-				);
-		
-		
-		return mesh;
-	}
+  };
 
-	 /*
-    	Properties
-	  */
-	private final DoubleProperty height = new SimpleDoubleProperty(){
-        @Override
-        protected void invalidated() {
-			setMesh(createRhombicDodecahedron(getHeight()));
-		}        
-    };
+  public final double getHeight() {
+    return height.get();
+  }
 
-    public final double getHeight() {
-        return height.get();
-    }
+  public final void setHeight(double value) {
+    height.set(value);
+  }
 
-    public final void setHeight(double value) {
-        height.set(value);
-    }
+  public DoubleProperty heightProperty() {
+    return height;
+  }
 
-    public DoubleProperty heightProperty() {
-        return height;
-    }
-    
 }
