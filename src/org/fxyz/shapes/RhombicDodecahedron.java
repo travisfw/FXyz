@@ -26,41 +26,34 @@ import javafx.scene.shape.DrawMode;
 
 import org.fxyz.shapes.containers.ShapeContainer;
 import org.fxyz.shapes.primitives.OctahedronMesh;
+import org.fxyz.shapes.primitives.RhombicDodecahedronMesh;
 
-/**
- *
- * @author Moussaab AMRINE <dy_amrine@esi.dz>
- * @author  Yehya BELHAMRA <dy_belhamra@esi.dz>
- */
-public class Octahedron extends ShapeContainer<OctahedronMesh> {
 
-	private OctahedronMesh mesh;
+public class RhombicDodecahedron extends ShapeContainer<RhombicDodecahedronMesh> {
+
+	private RhombicDodecahedronMesh mesh;
 	
-	public Octahedron() {
-		super(new OctahedronMesh());
+	public RhombicDodecahedron() {
+		super(new RhombicDodecahedronMesh());
 		this.mesh = getShape();
 	}
 	
-	public Octahedron(double hypotenuse, double height) {
+	public RhombicDodecahedron(double height) {
 		this();
-		mesh.setHypotenuse(hypotenuse);
 		mesh.setHeight(height);
 	}
 	
-	public Octahedron(Color c){
+	public RhombicDodecahedron(Color c){
         this();
         this.setDiffuseColor(c);
     }
     
-	public Octahedron(double hypotenuse, double height, Color c){
-        super(new OctahedronMesh(hypotenuse, height));
+	public RhombicDodecahedron(double height, Color c){
+        super(new RhombicDodecahedronMesh(height));
         this.mesh = getShape();
         this.setDiffuseColor(c);
     }
 	
-	public final void setHypotenuse(double value) {
-        mesh.setHypotenuse(value);
-    }
     public final void setHeight(double value) {
         mesh.setHeight(value);
     }
@@ -72,9 +65,6 @@ public class Octahedron extends ShapeContainer<OctahedronMesh> {
     }
     public final void setCullFace(CullFace value) {
         mesh.setCullFace(value);
-    }
-    public final double getHypotenuse() {
-        return mesh.getHypotenuse();
     }
     public final double getHeight() {
         return mesh.getHeight();

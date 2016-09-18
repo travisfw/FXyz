@@ -23,32 +23,24 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.shape.TriangleMesh;
 
-/**
- *
- * @author Moussaab AMRINE <dy_amrine@esi.dz>
- * @author  Yehya BELHAMRA <dy_belhamra@esi.dz>
- */
 
-public class OctahedronMesh extends MeshView {
+public class RhombicDodecahedronMesh extends MeshView {
 	
-	private static final double DEFAULT_HEIGHT = 100.0D;
-    private static final double DEFAULT_HYPOTENUSE = 100.0D;
-	
-	public OctahedronMesh(){
-		this(DEFAULT_HEIGHT,DEFAULT_HYPOTENUSE);
+	public static final double DEFAULT_HEIGHT = 100.0D;
+
+	public RhombicDodecahedronMesh(){
+		this(DEFAULT_HEIGHT);
 	}
 	
-	public OctahedronMesh (double height , double hypotenuse ) { 
-		setHypotenuse(hypotenuse);
+	public RhombicDodecahedronMesh (double height) {
 		setHeight(height);
     }
 	
 	
-	private TriangleMesh createOctahedron(double hypotenuse , double height){
+	private TriangleMesh createRhombicDodecahedron(double height){
 		
 		TriangleMesh mesh = new TriangleMesh();
 		
-		float hy = (float)hypotenuse;
 		float he = (float)height;
 		
 		mesh.getPoints().addAll(
@@ -78,37 +70,15 @@ public class OctahedronMesh extends MeshView {
 		
 		
 		return mesh;
-		
 	}
-	
-	
+
 	 /*
     	Properties
 	  */
-	private final DoubleProperty hypotenuse = new SimpleDoubleProperty(){
-		@Override
-		protected void invalidated() {
-			setMesh(createOctahedron(getHypotenuse(), (float)getHeight()));
-		}
-	};
-
-	public final double getHypotenuse() {
-		return hypotenuse.get();
-	}
-	
-	public final void setHypotenuse(double value) {
-		hypotenuse.set(value);
-	}
-
-	public DoubleProperty hypotenuseProperty() {
-		return hypotenuse;
-	}
-	
-	
 	private final DoubleProperty height = new SimpleDoubleProperty(){
         @Override
         protected void invalidated() {
-			setMesh(createOctahedron(getHypotenuse(), (float)getHeight()));
+			setMesh(createRhombicDodecahedron(getHeight()));
 		}        
     };
 
