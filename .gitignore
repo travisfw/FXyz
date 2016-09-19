@@ -215,3 +215,9 @@ pip-log.txt
 .mr.developer.cfg
 /FXYZ/nbproject/private/
 /nbproject/private/
+
+#merge temp files
+*_BACKUP_*
+*_BASE_*
+*_LOCAL_*
+*_REMOTE_*
