@@ -41,52 +41,63 @@ public class RhombicDodecahedronMesh extends MeshView {
 
     TriangleMesh mesh = new TriangleMesh();
 
-    float h = (float) height;
     float r = (float) height/2;
     float s = (float) height/4;
 
     mesh.getPoints().addAll(
-//				  0 ,   0 ,   0,    //point O
-//				  0 ,  he , -hy/2,  //point A
-//				-hy/2, he ,   0,    //point B
-//				 hy/2, he ,   0,	//point C
-//				  0 ,  he ,  hy/2,	//point D
-//				  0 , 2*he ,  0     //point E
         // in ascending z order and counter clockwise from the x axis as 0degrees
-         0,  0, -r, // A  -z axis
-         s, -s, -s, // B
-        -s, -s, -s, // C
-        -s,  s, -s, // D
-         s,  s, -s, // E
-         r,  0,  0, // F  +x axis
-         0,  r,  0, // G  +y axis
-        -r,  0,  0, // H  -x axis
-         0, -r,  0, // I  +y axis
-         s, -s,  s, // J
-        -s, -s,  s, // K
-        -s,  s,  s, // L
-         s,  s,  s, // M
-         0,  0,  r  // N  +z axis
+         0,  0, -r, // A0  -z axis
+         s, -s, -s, // B1
+        -s, -s, -s, // C2
+        -s,  s, -s, // D3
+         s,  s, -s, // E4
+         r,  0,  0, // F5  +x axis
+         0,  r,  0, // G6  +y axis
+        -r,  0,  0, // H7  -x axis
+         0, -r,  0, // I8  -y axis
+         s, -s,  s, // J9
+        -s, -s,  s, // K10
+        -s,  s,  s, // L11
+         s,  s,  s, // M12
+         0,  0,  r  // N13  +z axis
 
     );
-
 
     mesh.getTexCoords().addAll(0, 0);
 
+    // A rhombic dodecahedron can be modeled as six pyramids, one on each face of a cube
+    // each face of a pyramid is half of a face of the rhombic dodecahedron
     mesh.getFaces().addAll(
-        0, 0, 2, 0, 1, 0,        // O-B-A
-        0, 0, 1, 0, 3, 0,        // O-A-C
-        0, 0, 3, 0, 4, 0,        // O-C-D
-        0, 0, 4, 0, 2, 0,        // O-D-B
-        4, 0, 1, 0, 2, 0,        // D-A-B
-        4, 0, 3, 0, 1, 0,        // D-C-A
-        5, 0, 2, 0, 1, 0,        // E-B-A
-        5, 0, 1, 0, 3, 0,        // E-A-C
-        5, 0, 3, 0, 4, 0,        // E-C-D
-        5, 0, 4, 0, 2, 0        // E-D-B
+        0, 0,  1, 0,  2, 0,   // ABC
+        0, 0,  2, 0,  3, 0,   // ACD
+        0, 0,  3, 0,  4, 0,   // ADE
+        0, 0,  4, 0,  1, 0,   // AEB
+
+        5, 0,  1, 0,  4, 0,   // FBE
+        5, 0,  4, 0, 12, 0,   // FEM
+        5, 0, 12, 0,  9, 0,   // FMJ
+        5, 0,  9, 0,  1, 0,   // FJB
+
+        6, 0,  4, 0,  3, 0,   // G
+        6, 0,  3, 0, 11, 0,   // G
+        6, 0, 11, 0, 12, 0,   // G
+        6, 0, 12, 0,  4, 0,   // G
+
+        7, 0,  3, 0,  2, 0,   // H
+        7, 0,  2, 0, 10, 0,   // H
+        7, 0, 10, 0, 11, 0,   // H
+        7, 0, 11, 0,  3, 0,   // H
+
+        8, 0,  1, 0,  9, 0,   // I
+        8, 0,  9, 0, 10, 0,   // I
+        8, 0, 10, 0,  2, 0,   // I
+        8, 0,  2, 0,  1, 0,   // I
+
+        13,0,  9, 0, 12, 0,   // N
+        13,0, 12, 0, 11, 0,   // N
+        13,0, 11, 0, 10, 0,   // N
+        13,0, 10, 0,  9, 0    // N
     );
-
-
     return mesh;
   }
 
