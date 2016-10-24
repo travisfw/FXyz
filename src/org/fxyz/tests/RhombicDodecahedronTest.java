@@ -37,6 +37,9 @@ import org.fxyz.geometry.Point3D;
 import org.fxyz.shapes.primitives.RhombicDodecahedronMesh;
 import org.fxyz.utils.OBJWriter;
 
+/**
+ * Derived from {@link CuboidTest}
+ */
 public class RhombicDodecahedronTest extends Application {
   private PerspectiveCamera camera;
   private final double sceneWidth = 600;
