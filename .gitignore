@@ -30,6 +30,13 @@ local.properties
 
 
 #################
+## IntelliJ
+#################
+
+/.idea/
+
+
+#################
 ## Visual Studio
 #################
 
@@ -165,6 +172,7 @@ UpgradeLog*.htm
 App_Data/*.mdf
 App_Data/*.ldf
 
+
 #############
 ## Windows detritus
 #############
@@ -216,8 +224,12 @@ pip-log.txt
 /FXYZ/nbproject/private/
 /nbproject/private/
 
-#merge temp files
+# merge temp files
 *_BACKUP_*
 *_BASE_*
 *_LOCAL_*
 *_REMOTE_*
+
+# gradle
+/.gradle/
+
